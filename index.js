@@ -109,21 +109,6 @@ function youWon () {
     
 }
 
-function updateCountdown(seconds) {
-    const h1 = document.querySelector("h1");
-    h1.textContent = `Next flag in ${seconds}`;
-  
-    if (seconds > 0) {
-      // Decrement the seconds and call the function recursively after 1 second
-      setTimeout(() => {
-        updateCountdown(seconds - 1);
-      }, 1000);
-    } else {
-        playAgain()
-    }
-}
-
-
 function playAgain() {
     const game = document.getElementById("game");
     game.innerHTML = "";
@@ -134,6 +119,22 @@ function playAgain() {
     game.insertBefore(h1, game.firstChild)
     fullGame();
 }
+
+
+function updateCountdown(seconds) {
+    const h1 = document.querySelector("h1");
+    h1.textContent = `Next flag in ${seconds}`;
+  
+    if (seconds > 0) {
+      setTimeout(() => {
+        updateCountdown(seconds - 1);
+      }, 1000);
+    } else {
+        playAgain()
+    }
+}
+
+
 
 
 fullGame()
