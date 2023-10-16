@@ -24,25 +24,28 @@ async function getFlagsFromApi(){
     }
 }
 
-
+// Randomly chooses 4 flags 
 async function chooseFourFlags(){
     let data = await getFlagsFromApi();
     let currentIndex = data.length
         let randomIndex;
-        while (currentIndex > 0){
+        while (currentIndex > 0){ // Shuffle algorithm using fisher yates
             randomIndex = Math.floor(Math.random() * currentIndex);
             currentIndex--;
             [data[currentIndex], data[randomIndex]] = [
                 data[randomIndex], data[currentIndex]];
         }
-        return data.slice(-4)
+        return data.slice(-4) // Choose and return last 4 flags
     
 }
 
 let gameFlags = null;
 let chosenCountryName = null;
+// Create score and store it in localstorage
 let storedScore = localStorage.getItem("score");
 let score = storedScore ? parseInt(storedScore) : 0;
+
+// Prints game's HTML
 async function printGame(){
     gameFlags = await chooseFourFlags();
     const game = document.getElementById("game");
@@ -52,9 +55,11 @@ async function printGame(){
     game.appendChild(h1);
     game.appendChild(h2);
     const gamefield = document.getElementById("gamefield");
+    //Generates a number between 0 and 3
     const chosenCountry = Math.floor(Math.random() * gameFlags.length);
+    // Iterates through each flag, and index position.
     gameFlags.forEach((flag, index) => {
-        if (index === chosenCountry) {
+        if (index === chosenCountry) { // This section uses the index position to compare with the randomly generated number to choose which country is going to be guessed
             chosenCountryName = flag.name;
         }
         const option = document.createElement("img");
@@ -66,6 +71,7 @@ async function printGame(){
     game.insertBefore(h1, game.firstChild)
 }
 
+// Prints game and adds a listener to add or remove score
 async function fullGame(){
     await printGame();
     const flags = document.querySelectorAll("img")
@@ -75,7 +81,7 @@ async function fullGame(){
                 score += 100;
                 storedScore = localStorage.setItem("score", score)
                 updateScore();
-                youWon()
+                youWon() // Clears the HTML to transition to the next game
             } else  {
                 score -= 50;
                 updateScore()
@@ -86,12 +92,14 @@ async function fullGame(){
 
 }
 
+// Used to update score right after a user guesses or misses instead of doing it on reload
 function updateScore() {
     const scoreElement = document.getElementById("score");
     scoreElement.textContent = `Score: ${score}`;
   }
 
 
+// Clears html, adds fireworks effect and starts a countdown of 3 seconds before printing the game again
 function youWon () {
 
     const game = document.getElementById("game");
@@ -108,6 +116,7 @@ function youWon () {
     
 }
 
+// Prints the game again
 function playAgain() {
     const game = document.getElementById("game");
     game.innerHTML = "";
@@ -119,7 +128,7 @@ function playAgain() {
     fullGame();
 }
 
-
+// Countdown for the next game
 function updateCountdown(seconds) {
     const h1 = document.querySelector("h1");
     h1.textContent = `Next flag in ${seconds}`;
