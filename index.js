@@ -77,7 +77,6 @@ async function fullGame(){
                 updateScore();
                 youWon()
             } else  {
-                console.log("wrong")
                 score -= 50;
                 updateScore()
             }

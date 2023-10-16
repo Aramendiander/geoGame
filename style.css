@@ -47,6 +47,21 @@ img:not(:last-child){
     margin-right:5px;
 }
 
+@media (max-width: 1600px) {
+    img {
+        width: 150px;
+    }
+
+    #game {
+        height:400px;    
+    }
+
+    #score {
+        margin-top: 50px;
+    }
+
+  }
+
 @media (max-width: 725px) {
     img {
         width: 150px;
