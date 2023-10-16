@@ -43,8 +43,37 @@ button {
     margin:auto;
 }
 
+
 img:not(:last-child){
     margin-right:5px;
+}
+
+
+#country p {
+    text-align: center;
+}
+
+#country {
+    -webkit-box-shadow: 1px 3px 15px 5px #000000; 
+    box-shadow: 1px 3px 15px 5px #000000;  
+    padding: 25px;
+    margin: 20px 0 20px 0;
+     
+}
+
+#country h2 {
+    margin-top: 0px;
+}
+
+#country span {
+    text-align: center;
+    display: block;
+    margin: auto;
+}
+
+img.flag {
+    display: block;
+    margin: auto;
 }
 
 @media (max-width: 1600px) {

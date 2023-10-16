@@ -35,6 +35,7 @@ async function eachCountry() {
         // Country flag
         const printCountryFlag = document.createElement("img");
         printCountryFlag.src = countryFlag;
+        printCountryFlag.className ="flag"
         articleCountry.appendChild(printCountryFlag)
         // Country capital
         const printCountryCapital = document.createElement("p");
@@ -53,30 +54,26 @@ async function eachCountry() {
         printCountryPopulation.textContent = `Population: ${countryPopulation}`;
         articleCountry.appendChild(printCountryPopulation)
         // Country currencies
+        const printCurrencyDiv = document.createElement("div")
+        printCurrencyDiv.className = "currencies"
+        articleCountry.appendChild(printCurrencyDiv);
         for (let currency in countryCurrency) {
-            const printCountryCurrency = document.createElement("p");
+            
+            const printCountryCurrency = document.createElement("span");
             printCountryCurrency.textContent = `Currency: ${countryCurrency[currency].name}`;
-            articleCountry.appendChild(printCountryCurrency)
+            
+            printCurrencyDiv.appendChild(printCountryCurrency)
 
         }
         // Country languages
+        const printLanguagesDiv = document.createElement("div")
+        printLanguagesDiv.className = "languages"
+        articleCountry.appendChild(printLanguagesDiv);
         for (let language in countryLanguages) {
-            const printCountryLanguages = document.createElement("p");
+            const printCountryLanguages = document.createElement("span");
             printCountryLanguages.textContent = `Language: ${countryLanguages[language]}`;
-            articleCountry.appendChild(printCountryLanguages)
-        }
-        // Country timezones
-        if(countryTime.length > 1) {
-            console.log(`${countryName} has multiple timezones`)
-        } else {
-            const printCountryTime = document.createElement("p");
-            const utcString = countryTime.toString();
-            const offset = parseInt(utcString.substring(4));
-            const currentTime = Date(Date.UTC(offset));
-            printCountryTime.textContent = `Timezone: ${currentTime}`;
-            articleCountry.appendChild(printCountryTime);
-        }
-        
+            printLanguagesDiv.appendChild(printCountryLanguages)
+        }    
     });
 }
 
