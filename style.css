@@ -1,0 +1,60 @@
+body {
+    display:flex;
+    justify-content: center;
+
+}
+
+h1{
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+    margin-top: 125px;
+}
+
+#game {
+    height:600px;
+    width: 80%;
+    position: absolute;
+    background-color: white;
+    padding:50px;
+
+}
+
+#gamefield {
+    margin-top:50px;
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+}
+
+img {
+    margin-top:20px;
+    width: 250px;
+    -webkit-box-shadow: 1px 3px 15px 5px #000000; 
+box-shadow: 1px 3px 15px 5px #000000;    
+}
+
+button {
+    width: 250px;
+    height: 100px;
+    display:block;
+    margin:auto;
+}
+
+img:not(:last-child){
+    margin-right:5px;
+}
+
+@media (max-width: 725px) {
+    img {
+        width: 150px;
+    }
+  }
+
+  @media (max-width: 500px) {
+    img {
+        width: 100px;
+    }
+  }
