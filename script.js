@@ -1,125 +1,94 @@
-const opciones = [];
-// Create score and store it in localstorage
-let storedScore = localStorage.getItem("score");
-let score = storedScore ? parseInt(storedScore) : 0;
-
-const apiUrl = "https://restcountries.com/v3.1/all";
-
 async function getRawDataFromApi() {
     try {
         const response = await fetch("https://restcountries.com/v3.1/all")
         const countries = await response.json()
         return countries;
-        
+    } catch(error){
+        console.log(error);
+    }
+}
+
+const rawData = getRawDataFromApi()
+
+// Get capitals and names from the API's raw data
+async function getCountryFromApi(){
+    try {
+        const countries = await rawData
+        const data = countries.filter(country=> country.capital !== undefined)
+        const capitals = data.map(country => ({ 
+            capital: country.capital,
+            name: country.translations.spa.common
+         }));
+        return capitals;
     } catch(error){
         console.log(error);
     }
 }
 
 
-async function getRandomCountry (){
-    const tdArr=[];
-    //Datuk jaso
-    const dataCountries = await getRawDataFromApi();
-    console.log(dataCountries)
-    const countries = dataCountries.filter(country=> country.capital !== undefined)
-    //numero aleatorioak atera
-    shuffleArray(countries);
-    //Country aleatorioak aukeratu
-    const country0=countries[0];
-    const country1=countries[1];
-    const country2=countries[2];
-    const country3=countries[3];
-    console.log(country0)
-    console.log(country1)
-    console.log(country2)
-    console.log(country3)
-    //h3 sortu
-    const h3= document.createElement("h3");
-    h3.innerHTML=country0.translations.spa.common;
-    const section = document.getElementById("capitalesSec");
-    section.innerHTML="";
-    section.appendChild(h3);
-    //Tabla aukeratu eta vaciar
-    const table = document.getElementById("capitalesTable");
-    table.innerHTML="";
-    //"button"-ak sortu
-    const button0= document.createElement("button");
-    button0.innerHTML=country0.capital.toString();
-    button0.setAttribute("class", "correcto");
-    button0.addEventListener("click", ()=>{
-        button0.style.backgroundColor="green"
-        button1.style.display="none"
-        button2.style.display="none"
-        button3.style.display="none"
-        score += 100;
-        storedScore = localStorage.setItem("score", score)
-                updateScore()
-                youWon()
-    });
-    const button1= document.createElement("button");
-    button1.innerHTML=country1.capital.toString();
-    button1.setAttribute("class", "incorrecto") 
-    button1.addEventListener("click", ()=>{
-        button1.style.backgroundColor="red"
-        button0.style.display="none"
-        button2.style.display="none"
-        button3.style.display="none"
-        score -= 50;
-        storedScore = localStorage.setItem("score", score)
-                updateScore()
-    });
-    const button2= document.createElement("button");
-    button2.innerHTML=country2.capital.toString();
-    button2.setAttribute("class", "incorrecto")
-    button2.addEventListener("click", ()=>{
-        button2.style.backgroundColor="red"
-        button1.style.display="none"
-        button0.style.display="none"
-        button3.style.display="none"
-        score -= 50;
-        storedScore = localStorage.setItem("score", score)
-                updateScore()
-    });
-    const button3= document.createElement("button");
-    button3.innerHTML=country3.capital.toString();
-    button3.setAttribute("class", "incorrecto");
-    button3.addEventListener("click", ()=>{
-        button3.style.backgroundColor="red"
-        button1.style.display="none"
-        button2.style.display="none"
-        button0.style.display="none"
-        score -= 50;
+
+async function chooseFourCountries(){
+    let data = await getCountryFromApi();
+    let currentIndex = data.length
+        let randomIndex;
+        while (currentIndex > 0){
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex--;
+            [data[currentIndex], data[randomIndex]] = [
+                data[randomIndex], data[currentIndex]];
+        }
+        return data.slice(-4)
+    
+}
+
+
+let gameCapitals = null;
+let chosenCountryName = null;
+let storedScore = localStorage.getItem("score");
+let score = storedScore ? parseInt(storedScore) : 0;
+async function printGame(){
+    gameCapitals = await chooseFourCountries();
+    const game = document.getElementById("game");
+    const h1 = document.createElement("h1");
+    const h2 = document.createElement("h2");
+    h2.id = "score"
+    game.appendChild(h1);
+    game.appendChild(h2);
+    const gamefield = document.getElementById("gamefield");
+    const chosenCountry = Math.floor(Math.random() * gameCapitals.length);
+    gameCapitals.forEach((capital, index) => {
+        if (index === chosenCountry) {
+            chosenCountryName = capital.name;
+        }
+        const option = document.createElement("button");
+        option.textContent = capital.capital;
+        gamefield.appendChild(option);
+    });  
+    h1.textContent = `Choose the capital of ${chosenCountryName}`
+    h2.textContent = `Score: ${score}`
+    game.insertBefore(h1, game.firstChild)
+}
+
+async function fullGame(){
+    await printGame();
+    const capitals = document.querySelectorAll("button")
+    capitals.forEach((capital,index) => {
+        capital.addEventListener("click", () => {
+            if(gameCapitals[index].name === chosenCountryName) {
+                score += 100;
                 storedScore = localStorage.setItem("score", score)
                 updateScore();
-               
-    });
-    opciones.push(button0,button1,button2,button3);
-    shuffleArray(opciones);
-    table.appendChild(opciones[0]);
-    table.appendChild(opciones[1]);
-    table.appendChild(opciones[2]);
-    table.appendChild(opciones[3]);
-    h2=document.getElementById("score");
-    h2.textContent = `Score: ${score}`
+                youWon()
+            } else  {
+                console.log("wrong")
+                score -= 50;
+                updateScore()
+            }
+
+        })
+    })
+
 }
-
-
-//Random zenbakiak atera
-function shuffleArray(arr) {
-    for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-}
-
-
-
-
-getRandomCountry ();
-
-
-
 
 function updateScore() {
     const scoreElement = document.getElementById("score");
@@ -129,7 +98,7 @@ function updateScore() {
 
 function youWon () {
 
-    const game = document.getElementById("capitalesSec");
+    const game = document.getElementById("game");
     const h1 = document.createElement("h1");
     const gamefield = document.getElementById("gamefield");
     gamefield.innerHTML = "";
@@ -142,3 +111,36 @@ function youWon () {
     h1.textContent = updateCountdown(3)
     
 }
+
+function playAgain() {
+    const game = document.getElementById("game");
+    game.innerHTML = "";
+    const h1 = document.createElement("h1");
+    const gamefield = document.createElement("article")
+    gamefield.id = "gamefield"
+    game.appendChild(gamefield);
+    game.insertBefore(h1, game.firstChild)
+    fullGame();
+}
+
+
+function updateCountdown(seconds) {
+    const h1 = document.querySelector("h1");
+    h1.textContent = `Next country in ${seconds}`;
+  
+    if (seconds > 0) {
+      setTimeout(() => {
+        updateCountdown(seconds - 1);
+      }, 1000);
+    } else {
+        playAgain()
+    }
+}
+
+
+
+
+fullGame()
+
+
+
