@@ -1,5 +1,5 @@
 const inputBuscador = document.getElementById('buscador');
-const resultadosLista = document.getElementById('resultados');
+/* const resultadosLista = document.getElementById('resultados'); */
 const data2 = document.getElementById("countrylist");
 
 // Hacer una solicitud a la API para obtener los datos
@@ -25,7 +25,7 @@ function filtrarPorNombre(data, searchTerm) {
 
 // Función para mostrar los resultados en la lista
 function mostrarResultados(resultados) {
-    resultadosLista.innerHTML = '';
+    /* resultadosLista.innerHTML = ''; */
     resultados.forEach(country => {
         //if (!paisesMostrados[countryName])
         const countryName = country.name.common
@@ -64,7 +64,7 @@ function mostrarResultados(resultados) {
         articleCountry.appendChild(printCountryDriveDirection)
         // Country population
         const printCountryPopulation = document.createElement("p");
-        printCountryPopulation.textContent = `Population: ${countryPopulation}`;
+        printCountryPopulation.textContent = `Population: ${countryPopulation.toLocaleString()}`;
         articleCountry.appendChild(printCountryPopulation)
         // Country currencies
         const printCurrencyDiv = document.createElement("div")

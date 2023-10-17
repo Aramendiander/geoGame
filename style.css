@@ -1,8 +1,10 @@
 body {
-    display:flex;
-    justify-content: center;
-
+    background-image: url(https://s1.abcstatics.com/media/cultura/2019/09/20/banderas-del-mundo-k0j--1248x698@abc.jpg);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
+
 
 h1{
     text-align: center;
@@ -10,15 +12,17 @@ h1{
 
 h2 {
     text-align: center;
-    margin-top: 125px;
+
 }
 
 #game {
-    height:600px;
+    display: flex;
+    flex-direction: column;
+    height:550px;
     width: 80%;
     position: absolute;
     background-color: white;
-    padding:50px;
+    padding:20px;
 
 }
 
@@ -76,18 +80,98 @@ img.flag {
     margin: auto;
 }
 
+article#choose {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 100px;
+}
+
+#choose a {
+    width: 40%;
+    background-color: #E95420;
+    border: 1px solid black;
+    border-radius: 5%;
+    text-align:center;
+    margin-top: 20px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    color:white;
+    text-decoration:none;
+}
+
+#choose a:last-child {
+    width: 50%;
+    display:block;
+    margin: auto;
+    margin-top: 20px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}
+
+#home {
+    position:absolute;
+    top:0;
+    left: 20px;
+    font-size: 15px;
+    text-decoration:none;
+    color:black;
+}
+
+#container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color:white;
+    width:500px;
+    padding:50px;
+    position:absolute;
+}
+
+button {
+    width: 500px;
+    margin-top:25px;
+}
+
+
+
+/* #choose a {
+    padding: 10px;
+    background-color: gray;
+    border: 1px solid;
+    border-radius: 5%;
+}
+
+#choose a:not(:last-child){
+    display:inline-block;
+    width: 40%;
+} */
+
 @media (max-width: 1600px) {
     img {
         width: 150px;
     }
 
     #game {
-        height:400px;    
+        height:450px;    
     }
 
-    #score {
-        margin-top: 50px;
+    #container {
+        width: 500px;
     }
+
+    button {
+        width: 200px;
+    }
+
 
   }
 
@@ -101,4 +185,13 @@ img.flag {
     img {
         width: 100px;
     }
+
+    #container {
+        width: 250px;
+    }
+
+    button {
+        width: 150px;
+    }
+
   }

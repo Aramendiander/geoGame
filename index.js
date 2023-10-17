@@ -51,6 +51,13 @@ async function printGame(){
     h2.id = "score"
     game.appendChild(h1);
     game.appendChild(h2);
+    const backLink = document.createElement("a")
+    backLink.href = "./index.html"
+    const backText = document.createElement("h2")
+    backText.id = "home"
+    backText.textContent = "⬅️ Back to home"
+    backLink.appendChild(backText)
+    game.appendChild(backLink)
     const gamefield = document.getElementById("gamefield");
     const chosenCountry = Math.floor(Math.random() * gameFlags.length);
     gameFlags.forEach((flag, index) => {
@@ -116,7 +123,7 @@ function playAgain() {
     const gamefield = document.createElement("article")
     gamefield.id = "gamefield"
     game.appendChild(gamefield);
-    game.insertBefore(h1, game.firstChild)
+   /*  game.insertBefore(h1, game.firstChild) */
     fullGame();
 }
 

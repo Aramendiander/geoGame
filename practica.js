@@ -51,7 +51,7 @@ async function eachCountry() {
         articleCountry.appendChild(printCountryDriveDirection)
         // Country population
         const printCountryPopulation = document.createElement("p");
-        printCountryPopulation.textContent = `Population: ${countryPopulation}`;
+        printCountryPopulation.textContent = `Population: ${countryPopulation.toLocaleString()}`;
         articleCountry.appendChild(printCountryPopulation)
         // Country currencies
         const printCurrencyDiv = document.createElement("div")

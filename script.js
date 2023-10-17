@@ -52,6 +52,13 @@ async function printGame(){
     const h1 = document.createElement("h1");
     const h2 = document.createElement("h2");
     h2.id = "score"
+    const backLink = document.createElement("a")
+    backLink.href = "./index.html"
+    const backText = document.createElement("h2")
+    backText.id = "home"
+    backText.textContent = "⬅️ Back to home"
+    backLink.appendChild(backText)
+    game.appendChild(backLink)
     game.appendChild(h1);
     game.appendChild(h2);
     const gamefield = document.getElementById("gamefield");
@@ -119,7 +126,7 @@ function playAgain() {
     const gamefield = document.createElement("article")
     gamefield.id = "gamefield"
     game.appendChild(gamefield);
-    game.insertBefore(h1, game.firstChild)
+    /* game.insertBefore(h1, game.firstChild) */
     fullGame();
 }
 
