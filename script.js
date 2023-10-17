@@ -106,7 +106,7 @@ function youWon () {
     game.appendChild(h1);
     const container = document.querySelector('.fireworks');
     const fireworks = new Fireworks.default(container);
-    fireworks.start();
+    fireworks.launch(5);
 
     h1.textContent = updateCountdown(3)
     
