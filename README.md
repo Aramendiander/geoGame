@@ -1,4 +1,4 @@
-# geoGame
+# geoGame 🇯🇵 🇰🇷 🇩🇪 🇨🇳 🇺🇸 🇫🇷 🇪🇸 🇮🇹 🇷🇺 🇬🇧 
 
 Este es un proyecto de JavaScript centrado en información y juegos relacionados con países.
 
