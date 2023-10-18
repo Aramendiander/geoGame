@@ -1,4 +1,4 @@
-# geoGame 🇯🇵 🇰🇷 🇩🇪 🇨🇳 🇺🇸 🇫🇷 🇪🇸 🇮🇹 🇷🇺 🇬🇧 
+# geoGame :argentina:  :austria: :australia: :canada: 🇿🇦
 
 Este es un proyecto de JavaScript centrado en información y juegos relacionados con países.
 
